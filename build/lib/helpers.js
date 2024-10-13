@@ -42,6 +42,7 @@ export function countGivenCharactersInString(str, characters) {
   }
 
   const splitStr = str.split('');
+  console.log('splitStr :>> ', splitStr);
 
   let count = 0;
 
@@ -66,3 +67,13 @@ console.assert(
   countGivenCharactersInString('halló', ['a', 'l']) === 3,
   'countGivenCharactersInString: skilar fjölda stafa í streng',
 );
+
+/**
+ * Fjarlægja öll börn úr HTML element.
+ * @param {HTMLElement} element
+ */
+export function emptyElement(element) {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+}

@@ -1,37 +1,40 @@
-# Vefforritun 1, 2024: Verkefni 7, JS #1
+# Vefforritun 1, 2024: Verkefni 8, JS #1
 
 ## Markmið
 
-- Búa til JavaScript forrit sem notar föll, flæðistýringar og ítranir.
-- Nota strengi og tölur í JavaScript.
-- Nota fylki og hluti í JavaScript.
+- Skipta JavaScript forriti upp í einingar.
+- Forrita á móti DOM, _Document Object Model_.
+- Setja upp `eslint`.
 
 ## Grunnur
 
-Gefinn er grunnur að verkefni:
+Gefinn er grunnur að verkefni, byggður á verkefni 7. Í grunni eru:
 
 - `package.json` með:
   - skilgreindum dependency-ium: `browser-sync`, `concurrently` og `cpy-cli`.
   - NPM scripts sem keyra upp „dev“ og „build“.
 - `package-lock.json` skrá sem skilgreinir nákvæmlega hvaða dependency eru notuð _fyrir_ dependency-in okkar
-- `index.html` með leiðbeiningum og tengingu við `scripts.js`.
+- `index.html` með útliti úr sýnilausn og tengingu við `scripts.js` sem `JavaScript` module.
 - `.gitignore` sem passar upp á að `node_modules` mappan sé ekki geymd í git.
 - `scripts.js` með grunni að forriti, athugasemdir og tillögur að útfærslum eru í skjalinu.
+- `styles.css` með útliti fyrir verkefnið.
 
-Skjölun á nokkrum föllum og breytum sem notar [`jsdoc`](https://jsdoc.app/).
+Skjölun notar [`jsdoc`](https://jsdoc.app/).
 
 ### NPM
 
-Til að byrja að vinna verkefnið þarf að sækja það frá GitHub og keyra NPM:
+Hægt er að vinna útfrá eigin lausn á verkefni 7, sýnilausn á verkefni 7 eða gefnum grunni hér.
+
+Til að nota þennan grunn sem gefinn er hér þarf að sækja það frá GitHub og keyra NPM:
 
 ```bash
 # Inni í möppu sem á að geyma verkefnið
-git clone https://github.com/vefforritun/vef1-2024-v7.git
+git clone https://github.com/vefforritun/vef1-2024-v8.git
 # eða
-git clone git@github.com:vefforritun/vef1-2024-v7.git
+git clone git@github.com:vefforritun/vef1-2024-v8.git
 
 # Förum inn í möppu
-cd vef1-2024-v7
+cd vef1-2024-v8
 
 # Sækjum öll dependency með NPM
 npm install
@@ -49,85 +52,66 @@ git remote add origin <slóð á þitt GitHub repo>
 
 ## Virkni
 
-Setja upp virkni sem greinir strengi og gefur ýmsar upplýsingar um þá. Notkun á forritinu er í gegnum `console` í vafra, sjá lýsingu í `index.html`, en útfæra skal gefin föll (sjá nánar í athugasemdum) í `scripts.js`:
+Setja upp virkni sem greinir strengi og gefur ýmsar upplýsingar um þá í gegnum vefviðmót. Nota skal sömu föll og í verkefni 7: `longest(str)`, `shortest(str)`, `reverse(str)`, `vowels(str)`, `consonants(str)` og `palindrome(str)`. Sjá [nánar í verkefni 7](https://github.com/vefforritun/vef1-2024-v7?tab=readme-ov-file#virkni).
 
-- `longest(str)`
-  - Skilar lengsta orðinu í `str`.
-  - Ekki þarf að fjarlægja bil, tölustafi eða önnur tákn.
-  - Orð eru aðskilin með bilum.
-  - Greinarmerki er partur af orðinu, t.d. ætti `longest('halló heimur!')` að skila `heimur!`.
-  - Skilar fyrsta orðinu ef annað/önnur jafn löng finnast.
-  - Ef `str` er tómur strengur skal skila tómum streng.
-  - Ef `str` er ekki strengur skal skila `null`.
-- `shortest(str)`
-  - Eins og `longest` nema skilar stysta orðinu í `str`.
-- `reverse(str)`
-  - Skilar `str` í öfugri röð.
-  - Ef `str` er ekki strengur skal skila `null`.
-  - Ef `str` er tómur strengur skal skila tómum streng.
-- `vowels(str)`
-  - Skilar fjölda sérhljóða í `str`.
-  - Ef engir sérhljóðar eða ekki strengur skal skila `0`.
-  - Sérhljóðar eru allir íslenskir sérhljóðar: `a, e, i, o, u, y, á, é, ý, ú, í, ó, ö, æ`.
-- `consonants(str)`
-  - Skilar fjölda samhljóða í `str`.
-  - Ef engir samhljóðar eða ekki strengur skal skila `0`.
-  - Samhljóða eru allir íslenskir samhljóðar: `b, d, ð, f, g, h, j, k, l, m, n, p, r, s, t, v, x, þ`.
-- `palindrome(str)`
-  - Samhverfur strengur er lesin eins frá vinstri til hægri og hægri til vinstri.
-  - Skilar `true` ef `str` er samhverfur (palindrome), annars `false`.
-  - Skilar `false` ef `str` er ekki strengur.
-  - Ekki skiptir máli hvort stafir séu hástafir eða lágstafir.
-  - Ekki þarf að fjarlægja bil, tölustafi eða önnur tákn.
-  - Tómur strengur er ekki samhverfur.
+Í `scripts.js` er smá grunnur til að byrja á, unnið verður áfram í fyrirlestrum 9 og 10.
 
-Í `scripts.js` er merkt það sem þarf að útfæra með athugasemdum.
+Fyrir inntak og til að birta notendum gögn skal nota vef viðmót með DOM aðgerðum. `console` hlutinn má nota til að birta villur með `console.error()`.
 
-Fyrir inntak og til að birta notendum gögn skal nota `alert` `confirm` og `prompt` föllin ásamt `console` hlutinn til að birta upplýsingar með `console.info()` og `console.error()`.
+### Skipta upp í módúla
 
-### Hjálparföll
+Skipta skal upp í módúla, einnig skal skipta upp í föll sem hægt er að endurnota. Hver módúll skal innihalda aðeins eitt fall og viðeigandi hjálparföll.
 
-Í öllum tilfellum skal nota gefin hjálparföll. Sjá nánar í skjölun `scripts.js`.
+Gefin er `helpers.js` skrá sem inniheldur föll sem hægt er að endurnota í öllum módúlum (sambærilegt og í verkefni 7).
 
-Fyrir útfærslu á svipaðri virkni ætti að skoða að útbúa hjálparföll.
+### Útfærsla á viðmóti
 
-### Leiðbeint ferli
+Útfæra skal virkni þannig að gefið viðmót í `index.html` virki:
 
-Í `scripts.js` skal útfæra fallið `start()`. Það skal:
+- `textarea` til að skrifa texta í og þegar smellt er á `Greina` takka skal greina texta og birta niðurstöður í viðeigandi elementi/elementum.
+- Greining uppfærir sig þegar texti breytist í `textarea`, við hvern slátt á lyklaborðið.
+- Hægt að endursetja með `Hreinsa` takka.
 
-- Birta leiðbeiningar með `alert` um hvernig forritið er notað.
-- Biðja um inntak (streng) með `prompt`.
-- Ef löglegt inntak og ekki ýtt á „cancel“ skal kalla á `longest`, `shortest`, `reverse`, `vowels`, `consonants` og `palindrome` föllin.
-- Birta niðurstöður í `alert` með upplýsingum um hvað kom út úr hverju kalli, hver niðurstaða i nýjum streng.
-- Ef „cancel“ eða tómi strengur, ekki gera neitt.
-- Eftir að niðurstöður hafa verið birt skal bjóða notanda að gera aftur eða hætta.
+## eslint
 
-### Prófanir
+Setja skal upp `eslint` með því að keyra:
 
-Fyrir hvert af föllunum, fyrir utan `start`, skal skilgreina a.m.k. tvö próf með `console.assert()` sem sýna að fallið virki rétt. Prófin skulu vera skilgreind í `scripts.js`. Sjá dæmi í `scripts.js`.
+```bash
+npx eslint --init
+```
+
+Fylgið ferlinu og veljið viðeigandi, þið ættuð að enda með `eslint.config.mjs` skrá sem inniheldur:
+
+```javascript
+import pluginJs from '@eslint/js';
+import globals from 'globals';
+
+export default [
+  { languageOptions: { globals: globals.browser } },
+  pluginJs.configs.recommended,
+];
+```
 
 ## Netlify
 
-Skila skal verkefninu keyrandi á Netlify. Gefið er `build` script í `package.json` og nota build ferli þ.a. mappa sem verður til í `build` ferli sé notuð fyrir vef. Þetta verður til þess að þau gögn sem eru i möppu og eru ekki fyrir almenning (t.d. `package.json`) eru ekki birt, heldur aðeins:
-
-- `index.html`
-- `scripts.js`
+Skila skal verkefninu keyrandi á Netlify (eða sambærilegri hýsingu). Gefin er sama `build` script í `package.json` en uppfæra þarf hana m.v. það sem er í `lib/` möppu og CSS skrá.
 
 ## Mat
 
-- 10% Verkefni sett upp GitHub og á Netlify og `build` scripta notuð.
-- 40% Föll útfærð og virka.
-- 10% Hjálparföll notuð.
-- 20% Leiðbeint ferli útfært gegnum `start` fallið.
-- 20% Prófanir á föllum.
+- 15% Verkefni sett upp GitHub og á Netlify og `build` scripta uppfærð.
+- 15% Skipta upp í módúla.
+- 30% Texti greindur þegar smellt á `Greina` takka.
+- 10% Greining uppfærist þegar texti breytist.
+- 10% Hægt að endursetja með `Hreinsa` takka.
+- 20% eslint uppsett og engar villur.
 
 ## Sett fyrir
 
-Verkefni sett fyrir mánudaginn 7. október 2024.
+Verkefni sett fyrir mánudaginn 14. október 2024.
 
 ## Skil
 
-Skila skal í Canvas, seinasta lagi fyrir lok dags fimmtudaginn 17. október 2024.
+Skila skal í Canvas, seinasta lagi fyrir lok dags fimmtudaginn 24. október 2024.
 
 Skilaboð skulu innihalda:
 

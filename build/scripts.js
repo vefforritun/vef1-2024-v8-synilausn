@@ -6,7 +6,7 @@
  * Notar `console.assert` til að athuga hvort föll virki rétt.
  */
 
-import { check } from './lib/check.js';
+import { analyse } from './lib/analyse.js';
 
 /**
  * Uppfærir element með niðurstöðum greiningar. Ef niðurstaða er `null` er
@@ -21,7 +21,7 @@ import { check } from './lib/check.js';
  * - `.reversed` fyrir snúinn streng.
  *
  * @param {HTMLElement} element Element sem inniheldur niðurstöður.
- * @param {import("./lib/check.js").Analysis | null} analysis Niðurstaða greiningar eða `null`.
+ * @param {import("./lib/analyse").Analysis | null} analysis Niðurstaða greiningar eða `null`.
  */
 function updateFormUi(element, analysis) {
   // Ef greining er `null` er element falið
@@ -103,7 +103,7 @@ function updateUi(form) {
   const input = textarea?.value ?? '';
 
   // Greinum streng
-  const analysis = check(input);
+  const analysis = analyse(input);
   const outputElement = form.querySelector('.output');
 
   if (outputElement instanceof HTMLElement) {
@@ -143,20 +143,7 @@ function inputHandler(event) {
  */
 function resetHandler(event) {
   event.preventDefault();
-
-  const { target } = event;
-  if (target instanceof HTMLElement) {
-    const textareaElement = target.querySelector('textarea');
-    if (textareaElement instanceof HTMLTextAreaElement) {
-      // Tæmum textarea
-      textareaElement.value = '';
-    }
-
-    const outputElement = target.querySelector('.output');
-    if (outputElement instanceof HTMLElement) {
-      updateFormUi(outputElement, null);
-    }
-  }
+  console.log('reset');
 }
 
 // Fyrir hvert form í formum:

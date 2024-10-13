@@ -14,10 +14,12 @@ export function shortest(str) {
 
   let shortestWord = null;
   for (const word of words) {
+    console.log('word :>> ', word, word.length);
     if (
       shortestWord === null ||
       (word.trim().length > 0 && word.trim().length < shortestWord.length)
     ) {
+      console.log('ding :>> ', shortestWord, word);
       shortestWord = word;
     }
   }
